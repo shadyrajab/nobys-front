@@ -1,12 +1,13 @@
 import requests
 
-def create_account(username, email, crm, password):
+def create_account(username, email, crm, password, gender):
     url = "http://127.0.0.1:8000/v1/register/"
     data = {
         "username": username,
         "email": email,
         "crm": crm,
-        "password": password
+        "password": password,
+        "gender": gender
     }
 
     response = requests.post(url, json=data)
@@ -49,13 +50,13 @@ def get_hospitals():
         "text": response.text
     }
 
-def add_schedule(user_id, date, time, patient, age, value, description):
+def add_schedule(user_id, start_date, end_date, specialty, value, description):
+    
     url = "http://127.0.0.1:8000/v1/schedules/"
     data = {
-        "date": date,
-        "time": time,
-        "patient": patient,
-        "age": age,
+        "start_date": start_date.strftime("%Y-%m-%d"),
+        "end_date": end_date.strftime("%Y-%m-%d"),
+        "specialty": specialty,
         "value": value,
         "description": description
     }

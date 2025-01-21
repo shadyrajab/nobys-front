@@ -31,10 +31,11 @@ with create_accont.form("Create Account"):
     email = st.text_input("Email")
     crm = st.text_input("CRM")
     password = st.text_input("Password", type="password")
+    gender = st.selectbox("Gender", ("male", "female", "other"))
     submit_button = st.form_submit_button("Submit")
 
     if submit_button:
-        response = create_account(username, email, crm, password)
+        response = create_account(username, email, crm, password, gender)
 
         st.success(response)
 
@@ -90,16 +91,22 @@ st.markdown("""
 
 schedule = st.expander("POST Schedule")
 with schedule.form("Schedule"):
-    date = st.text_input("Date")
-    time = st.text_input("Time")
-    patient = st.text_input("Patient")
-    age = st.text_input("Age")
+    start_date = st.date_input("Data de Início")
+    end_date = st.date_input("Data de Fim")
+    specialty = st.text_input("Especialidade")
     value = st.text_input("Value")
     description = st.text_input("Description")
 
     submit_button = st.form_submit_button("Submit")
     if submit_button:
-        response = add_schedule(st.session_state["user_id"], date, time, patient, age, value, description)
+        response = add_schedule(
+            st.session_state["user_id"], 
+            start_date, 
+            end_date, 
+            specialty, 
+            value, 
+            description
+        )
         st.success(response)
 
 get_schedule = st.expander("GET Schedules")
